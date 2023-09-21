@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Assignment2Part6</string>
+    <string name="one_str">1</string>
+    <string name="zero_str">0</string>
+    <string name="two_str">2</string>
+    <string name="three_str">3</string>
+    <string name="four_str">4</string>
+    <string name="five_str">5</string>
+    <string name="six_str">6</string>
+    <string name="seven_str">7</string>
+    <string name="eight_str">8</string>
+    <string name="nine_str">9</string>
+    <string name="sqrt_str">sqrt</string>
+    <string name="divide_str">/</string>
+    <string name="multiply_str">*</string>
+    <string name="add_str">+</string>
+    <string name="subtract_str">-</string>
+    <string name="decimal_str">.</string>
+    <string name="equal_str">=</string>
+    <string name="zero_point_zero_str">0.0</string>
 </resources>
