@@ -18,4 +18,5 @@
     <string name="decimal_str">.</string>
     <string name="equal_str">=</string>
     <string name="zero_point_zero_str">0.0</string>
+    <string name="display_text_str"></string>
 </resources>

@@ -142,13 +142,30 @@
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="262dp" />
 
-    <EditText
+    <Button
         android:id="@+id/zero_point_zero_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zero_point_zero_str"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="262dp" />
+
+    <Button
+        android:id="@+id/five_id"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/five_str"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="262dp" />
+
+    <EditText
+        android:id="@+id/display_text_id"
         android:layout_width="410dp"
         android:layout_height="170dp"
         android:ems="10"
         android:inputType="text"
-        android:text="@string/zero_point_zero_str"
+        android:text="@string/display_text_str"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp"
         android:gravity="right"/>
