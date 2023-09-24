@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var decimalButton: Button
     lateinit var zeroPointZero: TextView
     lateinit var sqrtButton: Button
-    lateinit var clearButton: Button
     lateinit var addButton: Button
     lateinit var subtractButton: Button
     lateinit var multiplyButton: Button
@@ -38,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     // STATE VARIABLES FOR OPERATION
     var currentAnswer: String = "0"
     var firstNumber: Float = 0F
+    var secondNumber: Float = 0F
     var clickedOperation: Boolean = false
     var selectedOperation: String = ""
     val MAX_LENGTH = 10
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         sevenButton = findViewById(R.id.seven_id);
         eightButton = findViewById(R.id.eight_id);
         nineButton = findViewById(R.id.nine_id);
-        clearButton = findViewById(R.id.clear);
+
         addButton = findViewById(R.id.add);
         subtractButton = findViewById(R.id.subtract);
         multiplyButton = findViewById(R.id.multiply);
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                 "1",
                 view
             )
-            Log.d("SETTING 1",currentAnswer + selectedOperation + clickedOperation)
+            Log.d("SETTING 1",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
 
 
         }
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 "2",
                 view
             )
-            Log.d("SETTING 2",currentAnswer + selectedOperation + clickedOperation)
+            Log.d("SETTING 2",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
 
 
         }
@@ -104,6 +104,7 @@ class MainActivity : AppCompatActivity() {
                 "3",
                 view
             )
+            Log.d("SETTING 3",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
 
 
         }
@@ -116,6 +117,7 @@ class MainActivity : AppCompatActivity() {
                 "4",
                 view
             )
+            Log.d("SETTING 4",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
 
 
         }
@@ -128,6 +130,7 @@ class MainActivity : AppCompatActivity() {
                 "5",
                 view
             )
+            Log.d("SETTING 5",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
 
 
         }
@@ -140,6 +143,7 @@ class MainActivity : AppCompatActivity() {
                 "6",
                 view
             )
+            Log.d("SETTING 6",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
 
 
         }
@@ -152,6 +156,7 @@ class MainActivity : AppCompatActivity() {
                 "7",
                 view
             )
+            Log.d("SETTING 7",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
 
 
         }
@@ -164,6 +169,7 @@ class MainActivity : AppCompatActivity() {
                 "8",
                 view
             )
+            Log.d("SETTING 8",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
 
 
         }
@@ -176,6 +182,7 @@ class MainActivity : AppCompatActivity() {
                 "9",
                 view
             )
+            Log.d("SETTING 9",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
 
 
         }
@@ -188,6 +195,7 @@ class MainActivity : AppCompatActivity() {
                 "0",
                 view
             )
+            Log.d("SETTING 0",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
 
 
         }
@@ -202,16 +210,13 @@ class MainActivity : AppCompatActivity() {
                 ".",
                 view
             )
+            firstNumber = currentAnswer.toFloat()
+            Log.d("SETTING decimal",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
 
 
         }
 
-        clearButton.setOnClickListener { view: View ->
-            zeroPointZero.text = "0.0"
-            clickedOperation = false
-            selectedOperation = ""
-            currentAnswer = "0"
-        }
+
 
 
         addButton.setOnClickListener { view: View ->
@@ -219,7 +224,7 @@ class MainActivity : AppCompatActivity() {
             selectedOperation = "add"
             firstNumber = currentAnswer.toFloat()
             currentAnswer = "0"
-            Log.d("ADDING",currentAnswer + selectedOperation + clickedOperation)
+            Log.d("Adding",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
 
         }
 
@@ -228,7 +233,8 @@ class MainActivity : AppCompatActivity() {
             selectedOperation = "subtract"
             firstNumber = currentAnswer.toFloat()
             currentAnswer = "0"
-            Log.d("SUBTRACTING",currentAnswer + selectedOperation + clickedOperation)
+            Log.d("Subtracting",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
+
         }
 
         multiplyButton.setOnClickListener { view: View ->
@@ -236,14 +242,15 @@ class MainActivity : AppCompatActivity() {
             selectedOperation = "multiply"
             firstNumber = currentAnswer.toFloat()
             currentAnswer = "0"
-            Log.d("MULTIPLYING",currentAnswer + selectedOperation + clickedOperation)
+            Log.d("multiplying",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
         }
 
         divideButton.setOnClickListener { view: View ->
             clickedOperation = true
             selectedOperation = "divide"
+            firstNumber = currentAnswer.toFloat()
             currentAnswer = "0"
-            Log.d("DIVIDING",currentAnswer + selectedOperation + clickedOperation)
+            Log.d("dividing",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
         }
 
         sqrtButton.setOnClickListener { view: View ->
@@ -254,18 +261,21 @@ class MainActivity : AppCompatActivity() {
         }
         equalButton.setOnClickListener { view: View ->
             if (clickedOperation) {
-                val secondNum = currentAnswer.toFloat()
-                Log.d(selectedOperation,zeroPointZero.text.toString() + secondNum +  selectedOperation + clickedOperation)
+                val secondNumber = currentAnswer.toFloat()
+                Log.d(selectedOperation,zeroPointZero.text.toString() + secondNumber +  selectedOperation + clickedOperation)
 
 
-                val result = currentOperation(selectedOperation, firstNumber, secondNum, view) // Use firstNumber here
+                val result = currentOperation(selectedOperation, firstNumber, secondNumber, view) // Use firstNumber here
 
                 zeroPointZero.text = result.toString()
+
                 clickedOperation = false
                 selectedOperation = ""
-                firstNumber = 0F
+
+                currentAnswer = result.toString()
             }
         }
+        Log.d("Equal",firstNumber.toString() + " " + secondNumber.toString() + " " + currentAnswer + selectedOperation + clickedOperation)
 
 
 
@@ -273,12 +283,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleClickNumberButtons(clickedOperation: Boolean, selectedOperation: String, currentAnswer: String, newNumber: String, view: View): String {
         var result = currentAnswer
-
-        // If the previous button clicked was an operation, reset the currentAnswer
-        if (clickedOperation) {
-            zeroPointZero.text = newNumber
-            return newNumber  // Return early since operation is complete
-        }
 
         // Checking if user typed too many numbers
         if (result.length >= MAX_LENGTH) {
@@ -314,6 +318,7 @@ class MainActivity : AppCompatActivity() {
     private fun currentOperation(operation: String, firstNum: Float, secondNum: Float,view: View): Float {
 
         if (operation == "add") {
+
             return firstNum + secondNum
         }
         if (operation == "subtract") {
