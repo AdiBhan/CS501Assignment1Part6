@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
 
     // VIEWS
+    lateinit var zeroButton: Button
     lateinit var oneButton: Button
     lateinit var twoButton: Button
     lateinit var threeButton: Button
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     var currentAnswer: String = "0"
     var clickedOperation: Boolean = false
     var selectedOperation: String = ""
+    val MAX_LENGTH = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -61,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         decimalButton = findViewById(R.id.decimal_id);
         zeroPointZero = findViewById(R.id.zero_point_zero_id);
         sqrtButton = findViewById(R.id.sqrt_id);
+        zeroButton = findViewById(R.id.zero_id);
 
 
 
@@ -76,7 +79,114 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+        twoButton.setOnClickListener { view: View ->
 
+            currentAnswer = handleClickNumberButtons(
+                clickedOperation,
+                selectedOperation,
+                currentAnswer,
+                "2",
+                view
+            )
+
+
+        }
+        threeButton.setOnClickListener { view: View ->
+
+            currentAnswer = handleClickNumberButtons(
+                clickedOperation,
+                selectedOperation,
+                currentAnswer,
+                "3",
+                view
+            )
+
+
+        }
+        fourButton.setOnClickListener { view: View ->
+
+            currentAnswer = handleClickNumberButtons(
+                clickedOperation,
+                selectedOperation,
+                currentAnswer,
+                "4",
+                view
+            )
+
+
+        }
+        fiveButton.setOnClickListener { view: View ->
+
+            currentAnswer = handleClickNumberButtons(
+                clickedOperation,
+                selectedOperation,
+                currentAnswer,
+                "5",
+                view
+            )
+
+
+        }
+        sixButton.setOnClickListener { view: View ->
+
+            currentAnswer = handleClickNumberButtons(
+                clickedOperation,
+                selectedOperation,
+                currentAnswer,
+                "6",
+                view
+            )
+
+
+        }
+        sevenButton.setOnClickListener { view: View ->
+
+            currentAnswer = handleClickNumberButtons(
+                clickedOperation,
+                selectedOperation,
+                currentAnswer,
+                "7",
+                view
+            )
+
+
+        }
+        eightButton.setOnClickListener { view: View ->
+
+            currentAnswer = handleClickNumberButtons(
+                clickedOperation,
+                selectedOperation,
+                currentAnswer,
+                "8",
+                view
+            )
+
+
+        }
+        nineButton.setOnClickListener { view: View ->
+
+            currentAnswer = handleClickNumberButtons(
+                clickedOperation,
+                selectedOperation,
+                currentAnswer,
+                "9",
+                view
+            )
+
+
+        }
+        zeroButton.setOnClickListener { view: View ->
+
+            currentAnswer = handleClickNumberButtons(
+                clickedOperation,
+                selectedOperation,
+                currentAnswer,
+                "0",
+                view
+            )
+
+
+        }
 
     }
 
@@ -94,8 +204,24 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     result += newNumber
                 }
-                ZeroPointZero.text = result
+                zeroPointZero.text = result
             }
+
+            // Checking if user typed too many numbers
+            if (result.length > MAX_LENGTH) {
+                Snackbar.make(view, "Error: Maximum input length reached.", Snackbar.LENGTH_LONG).show()
+                return currentAnswer
+            }
+            // Can't spam decimal button
+            if (newNumber == "." && currentAnswer.contains(".")) {
+                Snackbar.make(view, "Invalid decimal input.", Snackbar.LENGTH_LONG).show()
+                return currentAnswer
+            }
+            // If first num is zero and user types in another num, we don't want to append
+            if (currentAnswer == "0" && newNumber != ".") {
+                result = newNumber
+            }
+
             return result
         }
 
