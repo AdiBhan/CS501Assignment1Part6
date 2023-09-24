@@ -22,14 +22,15 @@ class MainActivity : AppCompatActivity() {
     lateinit var SevenButton: Button
     lateinit var EightButton: Button
     lateinit var NineButton: Button
-    lateinit var AddButton: Button
-    lateinit var SubtractButton: Button
-    lateinit var MultiplyButton: Button
-    lateinit var DivideButton: Button
     lateinit var EqualButton: Button
     lateinit var DecimalButton: Button
     lateinit var ZeroPointZero: TextView
     lateinit var SqrtButton: Button
+    lateinit var clearButton: Button
+    lateinit var addButton: Button
+    lateinit var subtractButton: Button
+    lateinit var multiplyButton: Button
+    lateinit var divideButton: Button
 
 
     // STATE VARIABLES FOR OPERATION
@@ -51,10 +52,11 @@ class MainActivity : AppCompatActivity() {
         SevenButton = findViewById(R.id.seven_id)
         EightButton = findViewById(R.id.eight_id)
         NineButton = findViewById(R.id.nine_id)
-        AddButton = findViewById(R.id.add_id)
-        SubtractButton = findViewById(R.id.subtract_id)
-        MultiplyButton = findViewById(R.id.multiply_id)
-        DivideButton = findViewById(R.id.divide_id)
+        clearButton = findViewById(R.id.clear)
+        addButton = findViewById(R.id.add)
+        subtractButton = findViewById(R.id.subtract)
+        multiplyButton = findViewById(R.id.multiply)
+        divideButton = findViewById(R.id.divide)
         EqualButton = findViewById(R.id.equal_id)
         DecimalButton = findViewById(R.id.decimal_id)
         ZeroPointZero = findViewById(R.id.zero_point_zero_id)
