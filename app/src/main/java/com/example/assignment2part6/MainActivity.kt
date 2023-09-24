@@ -2,6 +2,7 @@ package com.example.assignment2part6
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     // STATE VARIABLES FOR OPERATION
     var currentAnswer: String = "0"
+    var firstNumber: Float = 0F
     var clickedOperation: Boolean = false
     var selectedOperation: String = ""
     val MAX_LENGTH = 10
@@ -76,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                 "1",
                 view
             )
+            Log.d("SETTING 1",currentAnswer + selectedOperation + clickedOperation)
 
 
         }
@@ -88,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                 "2",
                 view
             )
+            Log.d("SETTING 2",currentAnswer + selectedOperation + clickedOperation)
 
 
         }
@@ -188,50 +192,126 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-    }
 
-        private fun handleClickNumberButtons(clickedOperation:Boolean, selectedOperation:String, currentAnswer:String, newNumber:String,view: View): String {
-            var result = currentAnswer
-            // If previous button clicked was an operation
-            if (clickedOperation) {
-                // Here, convert currentAnswer to float and then do your operations
-                val currentFloat = currentAnswer.toFloat()
-                result = currentOperation(selectedOperation, currentFloat, 1F,view).toString()
-                zeroPointZero.text = result
-            } else {
-                if (currentAnswer == newNumber) {
-                    result = newNumber
-                } else {
-                    result += newNumber
-                }
-                zeroPointZero.text = result
-            }
+        decimalButton.setOnClickListener { view: View ->
 
-            // Checking if user typed too many numbers
-            if (result.length > MAX_LENGTH) {
-                Snackbar.make(view, "Error: Maximum input length reached.", Snackbar.LENGTH_LONG).show()
-                return currentAnswer
-            }
-            // Can't spam decimal button
-            if (newNumber == "." && currentAnswer.contains(".")) {
-                Snackbar.make(view, "Invalid decimal input.", Snackbar.LENGTH_LONG).show()
-                return currentAnswer
-            }
-            // If first num is zero and user types in another num, we don't want to append
-            if (currentAnswer == "0" && newNumber != ".") {
-                result = newNumber
-            }
+            currentAnswer = handleClickNumberButtons(
+                clickedOperation,
+                selectedOperation,
+                currentAnswer,
+                ".",
+                view
+            )
 
-            return result
+
+        }
+
+        clearButton.setOnClickListener { view: View ->
+            zeroPointZero.text = "0.0"
+            clickedOperation = false
+            selectedOperation = ""
+            currentAnswer = "0"
         }
 
 
-    private fun currentOperation(
-        operation: String,
-        firstNum: Float,
-        secondNum: Float,
-        view: View
-    ): Float {
+        addButton.setOnClickListener { view: View ->
+            clickedOperation = true
+            selectedOperation = "add"
+            firstNumber = currentAnswer.toFloat()
+            currentAnswer = "0"
+            Log.d("ADDING",currentAnswer + selectedOperation + clickedOperation)
+
+        }
+
+        subtractButton.setOnClickListener { view: View ->
+            clickedOperation = true
+            selectedOperation = "subtract"
+            firstNumber = currentAnswer.toFloat()
+            currentAnswer = "0"
+            Log.d("SUBTRACTING",currentAnswer + selectedOperation + clickedOperation)
+        }
+
+        multiplyButton.setOnClickListener { view: View ->
+            clickedOperation = true
+            selectedOperation = "multiply"
+            firstNumber = currentAnswer.toFloat()
+            currentAnswer = "0"
+            Log.d("MULTIPLYING",currentAnswer + selectedOperation + clickedOperation)
+        }
+
+        divideButton.setOnClickListener { view: View ->
+            clickedOperation = true
+            selectedOperation = "divide"
+            currentAnswer = "0"
+            Log.d("DIVIDING",currentAnswer + selectedOperation + clickedOperation)
+        }
+
+        sqrtButton.setOnClickListener { view: View ->
+            val currentFloat = currentAnswer.toFloat()
+            val result = currentOperation("SQRT", currentFloat, 0F, view)
+            zeroPointZero.text = result.toString()
+            clickedOperation = false
+        }
+        equalButton.setOnClickListener { view: View ->
+            if (clickedOperation) {
+                val secondNum = currentAnswer.toFloat()
+                Log.d(selectedOperation,zeroPointZero.text.toString() + secondNum +  selectedOperation + clickedOperation)
+
+
+                val result = currentOperation(selectedOperation, firstNumber, secondNum, view) // Use firstNumber here
+
+                zeroPointZero.text = result.toString()
+                clickedOperation = false
+                selectedOperation = ""
+                firstNumber = 0F
+            }
+        }
+
+
+
+    }
+
+    private fun handleClickNumberButtons(clickedOperation: Boolean, selectedOperation: String, currentAnswer: String, newNumber: String, view: View): String {
+        var result = currentAnswer
+
+        // If the previous button clicked was an operation, reset the currentAnswer
+        if (clickedOperation) {
+            zeroPointZero.text = newNumber
+            return newNumber  // Return early since operation is complete
+        }
+
+        // Checking if user typed too many numbers
+        if (result.length >= MAX_LENGTH) {
+            Snackbar.make(view, "Error: Maximum input length reached.", Snackbar.LENGTH_LONG).show()
+            return currentAnswer
+        }
+
+        // Can't input multiple decimals
+        if (newNumber == "." && currentAnswer.contains(".")) {
+            Snackbar.make(view, "Error: You cannot enter more than one decimal point", Snackbar.LENGTH_LONG).show()
+            return currentAnswer
+        }
+
+        // If the previous button clicked was not an operation, append the new number
+        if (currentAnswer != "0" || newNumber == ".") {  // Prevent leading zeros
+            result += newNumber
+        } else {
+            result = newNumber
+        }
+
+        zeroPointZero.text = result
+        return result
+    }
+
+
+
+
+
+
+
+
+
+    private fun currentOperation(operation: String, firstNum: Float, secondNum: Float,view: View): Float {
 
         if (operation == "add") {
             return firstNum + secondNum
@@ -260,7 +340,7 @@ class MainActivity : AppCompatActivity() {
             if (firstNum < 0) {
                 Snackbar.make(
                     view,
-                    "Error, you cannot SQRT a number less than or equal to zero. Please restart and try again with a positive number!",
+                    "Error, you cannot SQRT a number less than zero. Please restart and try again with a positive number!",
                     Snackbar.LENGTH_LONG
                 ).show()
                 return 0.0F
